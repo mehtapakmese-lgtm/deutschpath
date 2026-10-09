@@ -123,7 +123,7 @@ const shuf=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
 const clean=w=>w.replace(/[^A-Za-zÄÖÜäöüß]/g,'');
 const keys=l=>M[l].map(m=>l+'-'+m[0]);
 const done=(k,s)=>(S.p[k]||{})[s]!=null;
-function say(t,r){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='de-DE';u.rate=r||.9;speechSynthesis.speak(u)}catch(e){}}
+function say(t,r){try{if(window.AndroidTTS){window.AndroidTTS.speak(t,r||.9);return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='de-DE';u.rate=r||.9;speechSynthesis.speak(u)}catch(e){}}
 function rec(cb){const R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R)return cb(null);try{const r=new R();r.lang='de-DE';r.onresult=e=>cb(e.results[0][0].transcript);r.onerror=()=>cb(null);r.start()}catch(e){cb(null)}}
 function sim(a,b){const A=norm(a),B=norm(b);if(!B.length)return 0;const u=[...A];let h=0;B.forEach(w=>{const i=u.indexOf(w);if(i>-1){h++;u.splice(i,1)}});return h/B.length}
 let P=null,tab='home',cur=null,Q=null,end=null;
